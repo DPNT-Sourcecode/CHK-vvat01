@@ -22,7 +22,3 @@ class Checkout
   end
 
 end
-
-
-
-
