@@ -36,6 +36,7 @@ class Checkout
         if remaining_count >= offer.applied_quantity
           total += offer.applied_total_price
           remaining_count -= offer.applied_quantity
+          remaining_count -= offer.qualifying_quantity if offer.qualifying_sku == sku
         end
       end
     end
