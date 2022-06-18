@@ -13,6 +13,8 @@ end
 
 class Checkout
   def initialize()
+    @total = 0
+
     # Set up our store
     @store = Store.new
     @store.add_sku(SKU.new('A', 50, SpecialOffer.new(3, 130)))
@@ -22,31 +24,28 @@ class Checkout
   end
 
   def checkout(skus)
-    total = 0
     @store.skus.each do |sku|
-      count = skus.scan(/(?=#{sku.name})/).count || 0
-      if @offers[key] && (count > @offers[key]['quantity'])
-        total += offers[key][total_price]
-      else
-        total += (value * count)
-      end
+      count = skus.scan(/(?=#{sku.name})/).count
+      @total += sku.total_price(count) unless count.zero?
     end
-    total
   end
+  @total
 end
 
 def SKU
   attr_reader :name
 
-  def initialize(name, price, special_offers = [])
+  def initialize(name, price, special_offer = nil)
     @name = name
     @price = price
-    @special_offers = special_offers
+    @special_offer = special_offer
     @count = 0
   end
 
-  def increment_count
-    @count += 1
+  def total_price(count)
+    return (count * price) if @special_offer.nil?
+
+    
   end
 end
 
@@ -56,3 +55,4 @@ def SpecialOffer
     @total_price = total_price
   end
 end
+
