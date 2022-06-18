@@ -24,4 +24,3 @@ class Checkout
     @store.skus.reject { |sku| sku.count.zero? }.map { |sku| sku.total_price }.reduce(:+)
   end
 end
-

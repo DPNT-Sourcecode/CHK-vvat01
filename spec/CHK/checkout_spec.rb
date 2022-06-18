@@ -37,5 +37,3 @@ describe Checkout do
     expect(Checkout.new.checkout('EEE')).to eq 120
   end
 end
-
-
