@@ -31,17 +31,21 @@ class Checkout
     remaining_count = count
 
     @store.special_offers.select do |offer|
-      offer.applied_sku == sku && count >= offer.applied_quantity && @basket[offer.qualifying_sku][:count] >= offer.qualifying_quantity
+      @basket.key?(offer.qualifying_sku) &&
+      offer.applied_sku == sku &&
+      count >= offer.applied_quantity &&
+      @basket[offer.qualifying_sku][:count] >= offer.qualifying_quantity
     end.sort_by { |offer| -(offer.applied_total_price / offer.applied_quantity)  }.each do |offer|
       times_qualified = @basket[offer.qualifying_sku][:count] / offer.qualifying_quantity
       times_qualified.times do
-        next if remaining_count < offer.applied_quantity
-
-        total += offer.applied_total_price
-        remaining_count -= offer.applied_quantity
+        if remaining_count >= offer.applied_quantity
+          total += offer.applied_total_price
+          remaining_count -= offer.applied_quantity
+        end
       end
     end
     total + (remaining_count * sku.price)
   end
 end
+
 
