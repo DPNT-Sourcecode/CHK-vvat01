@@ -10,7 +10,11 @@ describe Checkout do
   end
 
   it "Returns -1 for unexpected characters in input" do
-    expect(Checkout.new.checkout('A,B-C/D')).to eq -1
+    expect(Checkout.new.checkout('A,B-C/Dx')).to eq -1
+  end
+
+  it "Returns -1 for a sku name not in store" do
+    expect(Checkout.new.checkout('AXB')).to eq -1
   end
 
   it "Factors in special offers" do
