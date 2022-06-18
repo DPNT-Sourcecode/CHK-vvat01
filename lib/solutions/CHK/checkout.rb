@@ -1,18 +1,8 @@
 # noinspection RubyUnusedLocalVariable
 
+require_relative 'store'
 require_relative 'sku'
-
-class Store
-  attr_reader :skus
-
-  def initialize(skus = [])
-    @skus = skus
-  end
-
-  def add_sku(sku)
-    @skus.append(sku)
-  end
-end
+require_relative 'special_offer'
 
 class Checkout
   def initialize()
@@ -27,18 +17,11 @@ class Checkout
   end
 
   def checkout(skus)
-    @store.skus.each do |sku|
+    @store.skus.each do |sku|e
       count = skus.scan(/(?=#{sku.name})/).count
       @total += sku.total_price(count) unless count.zero?
     end
   end
   @total
-end
-
-def SpecialOffer
-  def initialize(quantity, total_price)
-    @quantity = quantity
-    @total_price = total_price
-  end
 end
 
