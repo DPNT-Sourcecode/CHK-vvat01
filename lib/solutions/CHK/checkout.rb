@@ -1,8 +1,11 @@
 # noinspection RubyUnusedLocalVariable
 class Checkout
+  def initialise(items, offers)
+  end
 
   def checkout(skus)
-    raise 'Not implemented'
+    stripped_skus = skus.sub /[^A-Z]/, ''
   end
 
 end
+
