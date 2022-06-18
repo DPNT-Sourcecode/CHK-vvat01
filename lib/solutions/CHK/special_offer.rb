@@ -13,4 +13,3 @@ class SpecialOffer
     @applied_total_price / @applied_quantity
   end
 end
-
