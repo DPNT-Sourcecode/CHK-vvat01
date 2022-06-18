@@ -24,6 +24,7 @@ class Checkout
 
       store_sku.increment_count
     end
-    @store.skus.reduce { |sum, sku| sku.total_price }
+    @store.skus.reduce { |sum, sku| sum + sku.total_price }
   end
 end
+

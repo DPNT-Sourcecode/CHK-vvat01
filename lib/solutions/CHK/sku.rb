@@ -1,5 +1,5 @@
 class SKU
-  attr_reader :name, :price
+  attr_reader :name, :price, :count
 
   def initialize(name, price, special_offer = nil)
     @name = name
