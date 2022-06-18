@@ -44,7 +44,12 @@ describe Checkout do
   it "Handles all skus" do
     expect(Checkout.new.checkout('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).to eq 965
   end
+
+  it "Handles complex offers across various skus" do
+    expect(Checkout.new.checkout('HHHHHKHHHHHKHHHHHKHHNMNMPPPPPPQQQRRRUUUUU')).to eq 1130
+  end
 end
+
 
 
 
