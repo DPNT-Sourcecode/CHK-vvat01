@@ -40,4 +40,9 @@ describe Checkout do
   it "Handles special offers with different applied quantity on same sku" do
     expect(Checkout.new.checkout('FFFFFFFF')).to eq 60
   end
+
+  it "Handles all skus" do
+    expect(Checkout.new.checkout('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).to eq 965
+  end
 end
+
