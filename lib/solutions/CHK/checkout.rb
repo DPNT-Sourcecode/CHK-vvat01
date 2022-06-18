@@ -18,11 +18,12 @@ class Checkout
 
   def checkout(skus)
     sku_char_array = skus.split('')
-    @store.skus.each do |sku|
-      count = skus.scan(/(?=#{sku.name})/).count
-      @total += sku.total_price(count) unless count.zero?
+    sku_char_array.each do |sku_char|
+      store_sku = @store.sku_in_store(sku_char)
+      return -1 unless store_sku
+
+      store_sku.increment_count
     end
-    @total
+    @store.skus.reduce { |sum, sku| sku.total_price }
   end
 end
-
