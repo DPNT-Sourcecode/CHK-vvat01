@@ -4,8 +4,7 @@ class Checkout
   end
 
   def checkout(skus)
-    stripped_skus = skus.sub /[^A-Z]/, ''
+    stripped_skus = skus.gsub /[^A-Z]/, ''
   end
 
 end
-

@@ -9,5 +9,3 @@ describe Checkout do
     expect(Checkout.new.checkout('A,B-C/D')).to eq 115
   end
 end
-
-
