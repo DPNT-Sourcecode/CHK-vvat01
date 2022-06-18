@@ -2,6 +2,7 @@ require 'require_all'
 
 require 'simplecov'
 require 'simplecov-csv'
+require 'byebug'
 SimpleCov.formatter = SimpleCov::Formatter::CSVFormatter
 SimpleCov.start
 
