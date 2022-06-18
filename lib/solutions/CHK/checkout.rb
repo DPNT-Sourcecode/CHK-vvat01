@@ -17,8 +17,7 @@ class Checkout
   end
 
   def checkout(skus)
-    return -1 unless @store.valid_checkout(skus)
-
+    sku_char_array = skus.split('')
     @store.skus.each do |sku|
       count = skus.scan(/(?=#{sku.name})/).count
       @total += sku.total_price(count) unless count.zero?
