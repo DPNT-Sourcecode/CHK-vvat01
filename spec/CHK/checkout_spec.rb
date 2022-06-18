@@ -2,7 +2,7 @@ require_solution 'CHK'
 
 describe Checkout do
   it "Calculates the total checkout value of the items" do
-    expect(Checkout.new.checkout('ABCD')).to eq 115
+    expect(Checkout.new.checkout('ABCDE')).to eq 155
   end
 
   it "Returns 0 for empty input" do
@@ -22,6 +22,13 @@ describe Checkout do
   end
 
   it "Handles multiple occurences of a special offer" do
-    expect(Checkout.new.checkout('ABACADBAAAAAAAA')).to eq 570
+    expect(Checkout.new.checkout('ABACADBAAAAAAAA')).to eq 515
   end
+
+  it "Handles multiple special offers for same sku" do
+    expect(Checkout.new.checkout('AAAAABAAAAACAAADA')).to eq 645
+  end
+
+
 end
+
