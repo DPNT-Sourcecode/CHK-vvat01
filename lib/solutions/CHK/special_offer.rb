@@ -1,8 +1,8 @@
 class SpecialOffer
-  attr_reader :quantity, :total_price
-  
-  def initialize(quantity, total_price)
+  attr_reader :quantity, :deduction_per_item
+
+  def initialize(quantity, deduction_per_item, applied_to_other_sku = nil)
     @quantity = quantity
-    @total_price = total_price
+    @deduction_per_item = deduction_per_item
   end
 end
