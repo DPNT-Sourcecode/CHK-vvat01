@@ -6,6 +6,6 @@ class Store
   end
 
   def add_sku(sku)
-    @skus.append(sku)
+    @skus.push(sku)
   end
 end

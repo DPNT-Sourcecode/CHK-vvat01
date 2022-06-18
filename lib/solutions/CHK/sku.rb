@@ -1,5 +1,5 @@
-def SKU
-  attr_reader :name
+class SKU
+  attr_reader :name, :price
 
   def initialize(name, price, special_offer = nil)
     @name = name
@@ -9,10 +9,10 @@ def SKU
   end
 
   def total_price(count)
-    return (count * price) if @special_offer.nil?
+    return (count * @price) if @special_offer.nil?
 
     discounted_total = (count / @special_offer.quantity) * @special_offer.total_price
-    regular_total = (count % @special_offer.quantity) * price
+    regular_total = (count % @special_offer.quantity) * @price
     discounted_total + regular_total
   end
 end

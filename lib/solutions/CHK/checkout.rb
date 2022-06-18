@@ -17,7 +17,7 @@ class Checkout
   end
 
   def checkout(skus)
-    @store.skus.each do |sku|e
+    @store.skus.each do |sku|
       count = skus.scan(/(?=#{sku.name})/).count
       @total += sku.total_price(count) unless count.zero?
     end
