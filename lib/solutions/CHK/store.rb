@@ -1,12 +1,9 @@
 class Store
-  attr_reader :skus
+  attr_reader :skus, :special_offers
 
-  def initialize(skus = [])
+  def initialize(skus = [], special_offers = [])
     @skus = skus
-  end
-
-  def add_sku(sku)
-    @skus.push(sku)
+    @special_offers = special_offers
   end
 
   def sku_in_store(sku_string)
