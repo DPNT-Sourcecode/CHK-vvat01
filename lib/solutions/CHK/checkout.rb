@@ -7,8 +7,10 @@ class Checkout
 
   def checkout(skus)
     total = 0
+    puts skus
     @items.each do |key, value|
       count = skus.scan(/(?=#{key})/).count || 0
+      puts 
       puts count
       if @offers[key] && (count > @offers[key]['quantity'])
         total += offers[key][total_price]
@@ -20,6 +22,7 @@ class Checkout
   end
 
 end
+
 
 
 
