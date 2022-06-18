@@ -17,6 +17,8 @@ class Checkout
   end
 
   def checkout(skus)
+    return 0 if skus.empty?
+    
     sku_char_array = skus.split('')
     sku_char_array.each do |sku_char|
       store_sku = @store.sku_in_store(sku_char)
@@ -27,5 +29,6 @@ class Checkout
     @store.skus.reject { |sku| sku.count.zero? }.map { |sku| sku.total_price }.reduce(:+)
   end
 end
+
 
 
