@@ -53,7 +53,12 @@ describe Checkout do
     expect(Checkout.new.checkout('QQQRRR')).to eq 210
   end
 
-  it "Handles complex offers across various skus" do
-    expect(Checkout.new.checkout('NMNMPPPPPPUUUUUVVVVV')).to eq 765
+  it "Handles other free offers" do
+    expect(Checkout.new.checkout('NMNMN')).to eq 135
+  end
+
+  it "Handles more offers" do
+    expect(Checkout.new.checkout('PPPPPPUUUUUVVVVV')).to eq 630
   end
 end
+
