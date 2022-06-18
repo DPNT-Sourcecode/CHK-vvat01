@@ -51,4 +51,3 @@ class Checkout
     end.sort_by { |offer| offer.discounted_price_per_unit  }
   end
 end
-

@@ -46,15 +46,14 @@ describe Checkout do
   end
 
   it "Handles offers with large quantities" do
-    expect(Checkout.new.checkout('HHHHHKHHHHHKHHHHHKHH')).to eq 455
+    expect(Checkout.new.checkout('HHHHHKHHHHHKHHHHHKHH')).to eq 375
+  end
+
+  it "Handles competing offers across skus" do
+    expect(Checkout.new.checkout('QQQRRR')).to eq 210
   end
 
   it "Handles complex offers across various skus" do
-    expect(Checkout.new.checkout('HHHHHKHHHHHKHHHHHKHHNMNMPPPPPPQQQRRRUUUUUVVVVV')).to eq 1350
+    expect(Checkout.new.checkout('NMNMPPPPPPUUUUUVVVVV')).to eq 765
   end
 end
-
-
-
-
-
