@@ -42,7 +42,9 @@ describe Checkout do
   end
 
   it "Handles all skus" do
+    byebug
     expect(Checkout.new.checkout('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).to eq 965
   end
 end
+
 
