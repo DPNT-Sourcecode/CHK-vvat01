@@ -36,7 +36,6 @@ class Checkout
         if remaining_count >= offer.applied_quantity
           total += offer.applied_total_price
           remaining_count -= offer.applied_quantity
-          remaining_count -= offer.qualifying_quantity if offer.qualifying_sku == sku
         end
       end
     end
@@ -52,3 +51,4 @@ class Checkout
     end.sort_by { |offer| offer.discounted_price_per_unit  }
   end
 end
+
