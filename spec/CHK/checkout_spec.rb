@@ -36,4 +36,9 @@ describe Checkout do
   it "Handles special offers applied to other skus where other sku quantity not present" do
     expect(Checkout.new.checkout('EEE')).to eq 120
   end
+
+  it "Handles special offers with different applied quantity on same sku" do
+    expect(Checkout.new.checkout('FFFFFFFF')).to eq 60
+  end
 end
+
