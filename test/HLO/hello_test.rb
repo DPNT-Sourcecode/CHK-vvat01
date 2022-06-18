@@ -8,8 +8,9 @@ require_solution 'HLO'
 
 class ClientTest < Minitest::Test
 
-  def test_sum
-    assert_equal 3, Sum.new.sum(1, 2), 'App should add two numbers'
+  def test_hello
+    assert_equal 'Hello World!', Hello.new.hello('foobar'), 'App should say hello to the world'
   end
 
 end
+
