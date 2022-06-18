@@ -22,7 +22,7 @@ describe Checkout do
   end
 
   it "Handles multiple occurences of a special offer" do
-    expect(Checkout.new.checkout('ABACADBAAAAAAAA')).to eq 515
+    expect(Checkout.new.checkout('ABACADBAAAAAAAA')).to eq 530
   end
 
   it "Handles multiple special offers for same sku" do
@@ -37,5 +37,6 @@ describe Checkout do
     expect(Checkout.new.checkout('EEE')).to eq 120
   end
 end
+
 
 

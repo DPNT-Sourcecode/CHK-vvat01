@@ -21,7 +21,6 @@ class Checkout
 
       @basket[store_sku][:count] += 1
     end
-    # byebug
     @basket.map { |sku, entry| calculate_total(sku, entry[:count]) }.reduce(:+)
   end
 
@@ -31,12 +30,7 @@ class Checkout
     total = 0
     remaining_count = count
 
-    @store.special_offers.select do |offer|
-      @basket.key?(offer.qualifying_sku) &&
-      offer.applied_sku == sku &&
-      count >= offer.applied_quantity &&
-      @basket[offer.qualifying_sku][:count] >= offer.qualifying_quantity
-    end.sort_by { |offer| offer.discounted_price_per_unit  }.each do |offer|
+    filtered_and_sorted_offers(sku, count).each do |offer|
       times_qualified = @basket[offer.qualifying_sku][:count] / offer.qualifying_quantity
       times_qualified.times do
         if remaining_count >= offer.applied_quantity
@@ -47,6 +41,16 @@ class Checkout
     end
     total + (remaining_count * sku.price)
   end
+
+  def filtered_and_sorted_offers(sku, count)
+    @store.special_offers.select do |offer|
+      @basket.key?(offer.qualifying_sku) &&
+      offer.applied_sku == sku &&
+      count >= offer.applied_quantity &&
+      @basket[offer.qualifying_sku][:count] >= offer.qualifying_quantity
+    end.sort_by { |offer| offer.discounted_price_per_unit  }
+  end
 end
+
 
 
