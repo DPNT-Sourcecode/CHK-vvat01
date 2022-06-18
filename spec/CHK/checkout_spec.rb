@@ -1,7 +1,8 @@
-require_solution 'TDX'
+require_solution 'CHK'
 
-describe Story do
+describe Checkout do
   it "Read the beginning of a story" do
-    expect(Story.new.read).to eq "Once upon a time"
+    expect(Checkout.new.checkout('ABCD')).to eq 115
   end
 end
+
