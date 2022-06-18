@@ -22,3 +22,10 @@ class Checkout
   end
 
 end
+
+# def SKU
+#   def initialize(name, price)
+#     @name = name
+#     @price = price
+#   end
+# end
