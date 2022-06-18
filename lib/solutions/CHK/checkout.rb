@@ -21,7 +21,8 @@ class Checkout
       count = skus.scan(/(?=#{sku.name})/).count
       @total += sku.total_price(count) unless count.zero?
     end
+    @total
   end
-  @total
 end
+
 

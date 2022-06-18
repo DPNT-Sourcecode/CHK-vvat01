@@ -12,4 +12,9 @@ describe Checkout do
   it "Factors in special offers" do
     expect(Checkout.new.checkout('ABACADB')).to eq 210
   end
+
+  it "Handles multiple occurences of a special offer" do
+    expect(Checkout.new.checkout('ABACADB-AAA-AAA-AA')).to eq 570
+  end
 end
+
