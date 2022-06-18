@@ -6,9 +6,18 @@ class Checkout
   end
 
   def checkout(skus)
-    skus.gsub! /[^A-Z]/, ''
-
+    total = 0
+    @items.each do |key, value|
+      count = skus.scan(/(?=#{keu})/).count
+      if offers[key] && (count > offers[key][quantity])
+        total += offers[key][total_price]
+      else
+        total += (value * count)
+      end
+    end
+    total
   end
 
 end
+
 
