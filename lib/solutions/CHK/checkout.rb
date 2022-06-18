@@ -8,7 +8,7 @@ class Checkout
   def initialize()
     @store = Store.new
 
-    @basket = Hash.new { |h, k| h[k] = { count: 0, discounts: 0 } }
+    @basket = Hash.new { |h, k| h[k] = { count: 0 } }
   end
 
   def checkout(skus)
@@ -21,14 +21,12 @@ class Checkout
 
       @basket[store_sku][:count] += 1
     end
-    @basket.each { |sku, entry| calculate_discounts(sku, entry[:count]) }
-    process_offers
-    @store.skus.reject { |sku| sku.count.zero? }.map { |sku| sku.total_price }.reduce(:+)
+    @basket.map { |sku, entry| calculate_total(sku, entry[:count]) }.reduce(:+)
   end
 
   private
 
-  def calculate_discounts(sku, count)
+  def calculate_total(sku, count)
     total = 0
     remaining_count = count
 
@@ -42,8 +40,8 @@ class Checkout
         total += offer.applied_total_price
         remaining_count -= offer.applied_quantity
       end
-      total += (count / offer.qualifying_quantity) * @special_offer.applied_total_price
     end
     total + (remaining_count * sku.price)
   end
 end
+
