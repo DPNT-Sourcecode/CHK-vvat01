@@ -21,4 +21,3 @@ describe Checkout do
     expect(Checkout.new.checkout('ABACADBAAAAAAAA')).to eq 570
   end
 end
-
