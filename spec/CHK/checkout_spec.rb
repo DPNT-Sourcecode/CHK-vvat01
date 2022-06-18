@@ -14,7 +14,7 @@ describe Checkout do
   end
 
   it "Returns -1 for a sku name not in store" do
-    expect(Checkout.new.checkout('AXB')).to eq -1
+    expect(Checkout.new.checkout('AxB')).to eq -1
   end
 
   it "Factors in special offers" do
@@ -42,9 +42,9 @@ describe Checkout do
   end
 
   it "Handles all skus" do
-    byebug
     expect(Checkout.new.checkout('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).to eq 965
   end
 end
+
 
 

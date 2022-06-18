@@ -15,7 +15,6 @@ class Checkout
     return 0 if skus.empty?
 
     sku_char_array = skus.split('')
-    byebug
     sku_char_array.each do |sku_char|
       store_sku = @store.sku_in_store(sku_char)
       return -1 unless store_sku
@@ -52,3 +51,4 @@ class Checkout
     end.sort_by { |offer| offer.discounted_price_per_unit  }
   end
 end
+
