@@ -26,27 +26,24 @@ class Checkout
     @store.skus.reject { |sku| sku.count.zero? }.map { |sku| sku.total_price }.reduce(:+)
   end
 
+  private
+
   def calculate_discounts(sku, count)
-    @store.special_offers.each do |offer|
-      if offer.applied_sku == sku && count >= offer.applied_quantity
-        if @basket[offer.qualifying_sku][:count] >= offer.qualifying_quantity
-          @basket[offer.qualifying_sku][:count] / offer.qualifying_quantity
-        end
-      end
-      
+    total = 0
+    remaining_count = count
 
-      end
-        total += (count / offer.applied_quantity) * @special_offer.total_price
-        if  && count >= offer.qualifying_quantity && count >= offer.applied_quantity
+    @store.special_offers.select do |offer|
+      offer.applied_sku == sku && count >= offer.applied_quantity && @basket[offer.qualifying_sku][:count] >= offer.qualifying_quantity
+    end.sort_by { |offer| -(offer.applied_total_price / offer.applied_quantity)  }.each do |offer|
+      times_qualified = @basket[offer.qualifying_sku][:count] / offer.qualifying_quantity
+      times_qualified.times do
+        next if remaining_count < offer.applied_quantity
 
-        else
-
+        total += offer.applied_total_price
+        remaining_count -= offer.applied_quantity
       end
+      total += (count / offer.qualifying_quantity) * @special_offer.applied_total_price
     end
     total + (remaining_count * sku.price)
   end
 end
-
-discounted_total = (@count / @special_offer.quantity) * @special_offer.total_price
-    regular_total = (@count % @special_offer.quantity) * @price
-    discounted_total + regular_total
