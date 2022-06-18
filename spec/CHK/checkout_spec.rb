@@ -5,8 +5,8 @@ describe Checkout do
     expect(Checkout.new.checkout('ABCD')).to eq 115
   end
 
-  it "Ignores unexpected characters in input" do
-    expect(Checkout.new.checkout('A,B-C/D')).to eq 115
+  it "Returns -1 for unexpected characters in input" do
+    expect(Checkout.new.checkout('A,B-C/D')).to eq -1
   end
 
   it "Factors in special offers" do
@@ -17,4 +17,3 @@ describe Checkout do
     expect(Checkout.new.checkout('ABACADB-AAA-AAA-AA')).to eq 570
   end
 end
-

@@ -24,5 +24,3 @@ class Checkout
     @total
   end
 end
-
-
