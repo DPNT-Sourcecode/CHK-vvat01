@@ -21,7 +21,8 @@ class Checkout
 
       @basket[store_sku][:count] += 1
     end
-    @basket.map { |sku, entry| calculate_total(sku, entry[:count]) }.reduce(:+)
+    total = @basket.map { |sku, entry| calculate_total(sku, entry[:count]) }.reduce(:+)
+    puts @basket
   end
 
   private
@@ -47,5 +48,3 @@ class Checkout
     total + (remaining_count * sku.price)
   end
 end
-
-
