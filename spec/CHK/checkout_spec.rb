@@ -22,7 +22,6 @@ describe Checkout do
   end
 
   it "Handles multiple occurences of a special offer" do
-    byebug
     expect(Checkout.new.checkout('ABACADBAAAAAAAA')).to eq 515
   end
 
@@ -38,4 +37,5 @@ describe Checkout do
     expect(Checkout.new.checkout('EEE')).to eq 120
   end
 end
+
 

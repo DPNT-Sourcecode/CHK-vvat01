@@ -36,7 +36,7 @@ class Checkout
       offer.applied_sku == sku &&
       count >= offer.applied_quantity &&
       @basket[offer.qualifying_sku][:count] >= offer.qualifying_quantity
-    end.sort_by { |offer| (offer.applied_total_price / offer.applied_quantity)  }.each do |offer|
+    end.sort_by { |offer| offer.discounted_price_per_unit  }.each do |offer|
       times_qualified = @basket[offer.qualifying_sku][:count] / offer.qualifying_quantity
       times_qualified.times do
         if remaining_count >= offer.applied_quantity
@@ -48,4 +48,5 @@ class Checkout
     total + (remaining_count * sku.price)
   end
 end
+
 

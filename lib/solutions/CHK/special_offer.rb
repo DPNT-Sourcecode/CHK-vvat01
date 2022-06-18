@@ -8,4 +8,8 @@ class SpecialOffer
     @applied_sku = applied_sku || @qualifying_sku
     @applied_quantity = applied_quantity || @qualifying_quantity
   end
+
+  def discounted_price_per_unit
+    @applied_total_price / @applied_quantity
+  end
 end
