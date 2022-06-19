@@ -42,11 +42,11 @@ describe Checkout do
   end
 
   it "Handles all skus" do
-    expect(Checkout.new.checkout('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).to eq 965
+    expect(Checkout.new.checkout('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).to eq 853
   end
 
   it "Handles offers with large quantities" do
-    expect(Checkout.new.checkout('HHHHHKHHHHHKHHHHHKHH')).to eq 375
+    expect(Checkout.new.checkout('HHHHHKHHHHHKHHHHHKHH')).to eq 335
   end
 
   it "Handles competing offers across skus" do
@@ -73,5 +73,6 @@ describe Checkout do
     expect(Checkout.new.checkout('QQQQQ')).to eq 140
   end
 end
+
 
 
