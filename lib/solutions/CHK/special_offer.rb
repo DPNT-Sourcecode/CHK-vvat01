@@ -12,4 +12,12 @@ class SpecialOffer
   def discounted_price_per_unit
     @applied_total_price / @applied_quantity
   end
+
+  def required_qualifying_count
+    if @qualifying_skus == @applied_skus && @applied_quantity > @qualifying_quantity
+      @applied_quantity
+    else
+      @qualifying_quantity
+    end
+  end
 end

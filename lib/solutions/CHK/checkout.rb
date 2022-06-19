@@ -14,7 +14,7 @@ class Checkout
   def checkout(skus)
     return 0 if skus.empty?
 
-    if skus == 'FFFFFFFF'
+    if skus == 'STXYZT'
       byebug
     end
 
@@ -49,7 +49,7 @@ class Checkout
       appliers_quantity = appliers.keys.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
       next unless appliers_quantity >= offer.applied_quantity
       
-      times_qualified = qualifiers_quantity / offer.qualifying_quantity
+      times_qualified = qualifiers_quantity / offer.required_qualifying_count
       times_qualified.times do
         ticker = offer.applied_quantity
         current_appliers_index = 0
