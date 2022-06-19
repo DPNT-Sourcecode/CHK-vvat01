@@ -14,7 +14,7 @@ class Checkout
   def checkout(skus)
     return 0 if skus.empty?
 
-    if skus == 'ABACADBAAAAAAAA'
+    if skus == 'EEEBB'
       byebug
     end
 
@@ -34,7 +34,7 @@ class Checkout
   private
 
   def apply_special_offers
-    @store.special_offers.each do |offer|
+    @store.special_offers.sort_by { |offer| offer.discounted_price_per_unit  }.each do |offer|
       next if (@basket.keys & offer.qualifying_skus & offer.applied_skus).empty?
 
       qualifiers = @basket.select { |sku, entry| offer.qualifying_skus.include?(sku) && entry[:remaining_count] > 0 }
@@ -68,34 +68,34 @@ class Checkout
     @basket[sku][:remaining_count] = 0
   end
 
-  def calculate_total(sku)
-    total = 0
+  # def calculate_total(sku)
+  #   total = 0
 
-    filtered_and_sorted_offers(sku, count).each do |offer|
-      if offer.qualifying_skus.count == 1
-        times_qualified = @basket[offer.qualifying_skus.first][:count] / offer.qualifying_quantity
-        times_qualified.times do
-          if @remaining_counts[sku][] >= offer.applied_quantity
-            total += offer.applied_total_price
-            remaining_count -= offer.applied_quantity
-          end
-        end
-      else
+  #   filtered_and_sorted_offers(sku, count).each do |offer|
+  #     if offer.qualifying_skus.count == 1
+  #       times_qualified = @basket[offer.qualifying_skus.first][:count] / offer.qualifying_quantity
+  #       times_qualified.times do
+  #         if @remaining_counts[sku][] >= offer.applied_quantity
+  #           total += offer.applied_total_price
+  #           remaining_count -= offer.applied_quantity
+  #         end
+  #       end
+  #     else
 
-      end
+  #     end
       
-    end
-    total + (remaining_count * sku.price)
-  end
+  #   end
+  #   total + (remaining_count * sku.price)
+  # end
 
-  def filtered_and_sorted_offers(sku, count)
-    @store.special_offers.select do |offer|
-      !(@basket.keys & offer.qualifying_skus).empty? &&
-      offer.applied_skus.include?(sku) &&
-      count >= offer.applied_quantity &&
-      @basket[offer.qualifying_skus.first][:count] >= offer.qualifying_quantity
-    end.sort_by { |offer| offer.discounted_price_per_unit  }
-  end
+  # def filtered_and_sorted_offers(sku, count)
+  #   @store.special_offers.select do |offer|
+  #     !(@basket.keys & offer.qualifying_skus).empty? &&
+  #     offer.applied_skus.include?(sku) &&
+  #     count >= offer.applied_quantity &&
+  #     @basket[offer.qualifying_skus.first][:count] >= offer.qualifying_quantity
+  #   end.sort_by { |offer| offer.discounted_price_per_unit  }
+  # end
 end
 
 
