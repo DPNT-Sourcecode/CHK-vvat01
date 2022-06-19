@@ -60,5 +60,18 @@ describe Checkout do
   it "Handles more offers" do
     expect(Checkout.new.checkout('PPPPPPUUUUUVVVVV')).to eq 630
   end
+
+  it "Handles 3 Qs" do
+    expect(Checkout.new.checkout('QQQ')).to eq 80
+  end
+
+  it "Handles 4 Qs" do
+    expect(Checkout.new.checkout('QQQQ')).to eq 110
+  end
+
+  it "Handles 5 Qs" do
+    expect(Checkout.new.checkout('QQQQQ')).to eq 140
+  end
 end
+
 

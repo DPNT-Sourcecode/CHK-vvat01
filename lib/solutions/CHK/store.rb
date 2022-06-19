@@ -43,7 +43,7 @@ class Store
     s8 = SpecialOffer.new(k, 2, 150)
     s9 = SpecialOffer.new(n, 3, 0, m, 1)
     s10 = SpecialOffer.new(p, 5, 200)
-    s11 = SpecialOffer.new(q, 5, 80)
+    s11 = SpecialOffer.new(q, 3, 80)
     s12 = SpecialOffer.new(r, 3, 0, q, 1)
     s13 = SpecialOffer.new(u, 3, 120, u, 4)
     s14 = SpecialOffer.new(v, 2, 90)
