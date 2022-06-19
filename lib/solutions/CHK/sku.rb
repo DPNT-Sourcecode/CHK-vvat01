@@ -3,6 +3,6 @@ class SKU
 
   def initialize(name, price)
     @name = name
-    @price = price
+    @price = price.to_f
   end
 end

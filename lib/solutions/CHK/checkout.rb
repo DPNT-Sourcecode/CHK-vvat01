@@ -8,13 +8,13 @@ class Checkout
   def initialize()
     @store = Store.new
 
-    @basket = Hash.new { |h, k| h[k] = { total_count: 0, remaining_count: 0, total_price: 0 } }
+    @basket = Hash.new { |h, k| h[k] = { total_count: 0, remaining_count: 0, total_price: 0.0 } }
   end
 
   def checkout(skus)
     return 0 if skus.empty?
 
-    if skus == 'ABACADB'
+    if skus == 'ABACADBAAAAAAAA'
       byebug
     end
 
@@ -28,7 +28,7 @@ class Checkout
     end
     apply_special_offers
     @basket.keys.each { |sku| finalise_total(sku) }
-    @basket.map { |_sku, entry| entry[:total_price] }.reduce(:+)
+    @basket.map { |_sku, entry| entry[:total_price] }.reduce(:+).to_int
   end
 
   private
@@ -38,10 +38,14 @@ class Checkout
       next if (@basket.keys & offer.qualifying_skus & offer.applied_skus).empty?
 
       qualifiers = @basket.select { |sku, entry| offer.qualifying_skus.include?(sku) && entry[:remaining_count] > 0 }
+      next if qualifiers.empty?
+
       qualifiers_quantity = qualifiers.keys.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
       next unless qualifiers_quantity >= offer.qualifying_quantity
 
       appliers = @basket.select { |sku, entry| offer.applied_skus.include?(sku) && entry[:remaining_count] > 0 }
+      next if appliers.empty?
+
       applyiers_quantity = appliers.keys.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
       next unless applyiers_quantity >= offer.applied_quantity
       
@@ -93,6 +97,7 @@ class Checkout
     end.sort_by { |offer| offer.discounted_price_per_unit  }
   end
 end
+
 
 
 

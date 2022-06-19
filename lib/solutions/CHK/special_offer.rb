@@ -4,7 +4,7 @@ class SpecialOffer
   def initialize(qualifying_skus, qualifying_quantity, applied_total_price, applied_sku = nil, applied_quantity = nil)
     @qualifying_skus = qualifying_skus
     @qualifying_quantity = qualifying_quantity
-    @applied_total_price = applied_total_price
+    @applied_total_price = applied_total_price.to_f
     @applied_skus = applied_skus || @qualifying_skus
     @applied_quantity = applied_quantity || @qualifying_quantity
   end
