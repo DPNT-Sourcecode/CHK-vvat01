@@ -14,10 +14,6 @@ class Checkout
   def checkout(skus)
     return 0 if skus.empty?
 
-    if skus == 'STXYZT'
-      byebug
-    end
-
     sku_char_array = skus.split('')
     sku_char_array.each do |sku_char|
       store_sku = @store.sku_in_store(sku_char)
@@ -50,9 +46,9 @@ class Checkout
       next unless appliers_quantity >= offer.applied_quantity
       
       times_qualified = qualifiers_quantity / offer.required_qualifying_count
+      current_appliers_index = 0
       times_qualified.times do
         ticker = offer.applied_quantity
-        current_appliers_index = 0
         ticker.times do
           @basket[appliers.keys[current_appliers_index]][:remaining_count] -= 1
           @basket[appliers.keys[current_appliers_index]][:total_price] += offer.discounted_price_per_unit
@@ -66,33 +62,4 @@ class Checkout
     @basket[sku][:total_price] += (@basket[sku][:remaining_count] * sku.price)
     @basket[sku][:remaining_count] = 0
   end
-
-  # def calculate_total(sku)
-  #   total = 0
-
-  #   filtered_and_sorted_offers(sku, count).each do |offer|
-  #     if offer.qualifying_skus.count == 1
-  #       times_qualified = @basket[offer.qualifying_skus.first][:count] / offer.qualifying_quantity
-  #       times_qualified.times do
-  #         if @remaining_counts[sku][] >= offer.applied_quantity
-  #           total += offer.applied_total_price
-  #           remaining_count -= offer.applied_quantity
-  #         end
-  #       end
-  #     else
-
-  #     end
-      
-  #   end
-  #   total + (remaining_count * sku.price)
-  # end
-
-  # def filtered_and_sorted_offers(sku, count)
-  #   @store.special_offers.select do |offer|
-  #     !(@basket.keys & offer.qualifying_skus).empty? &&
-  #     offer.applied_skus.include?(sku) &&
-  #     count >= offer.applied_quantity &&
-  #     @basket[offer.qualifying_skus.first][:count] >= offer.qualifying_quantity
-  #   end.sort_by { |offer| offer.discounted_price_per_unit  }
-  # end
 end

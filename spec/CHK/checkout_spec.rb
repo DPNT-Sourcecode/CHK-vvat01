@@ -42,7 +42,7 @@ describe Checkout do
   end
 
   it "Handles all skus" do
-    expect(Checkout.new.checkout('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).to eq 853
+    expect(Checkout.new.checkout('ABCDEFGHIJKLMNOPQRSTUVWXYZ')).to eq 841
   end
 
   it "Handles offers with large quantities" do
@@ -77,3 +77,4 @@ describe Checkout do
     expect(Checkout.new.checkout('STXYZT')).to eq 90
   end
 end
+
