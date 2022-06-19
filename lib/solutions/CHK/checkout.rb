@@ -46,6 +46,7 @@ class Checkout
         ticker = offer.applied_quantity
         current_appliers_index = 0
         ticker.times do
+          byebug
           @basket[appliers[current_appliers_index]][:remaining_count] -= 1
           @basket[appliers[current_appliers_index]][:total_price] += offer.discounted_price_per_unit
           current_appliers_index += 1 if @basket[appliers[current_appliers_index]][:remaining_count].zero?
@@ -58,7 +59,6 @@ class Checkout
   end
 
   def finalise_total(sku)
-    byebug
     @basket[sku][:total_price] += (@basket[sku][:remaining_count] * sku.price)
     @basket[sku][:remaining_count] = 0
   end
