@@ -16,7 +16,7 @@ class Store
     h = SKU.new('H', 10)
     i = SKU.new('I', 35)
     j = SKU.new('J', 60)
-    k = SKU.new('K', 80)
+    k = SKU.new('K', 70)
     l = SKU.new('L', 90)
     m = SKU.new('M', 15)
     n = SKU.new('N', 40)
@@ -40,7 +40,7 @@ class Store
     s5 = SpecialOffer.new(f, 2, 20, f, 3)
     s6 = SpecialOffer.new(h, 5, 45)
     s7 = SpecialOffer.new(h, 10, 80)
-    s8 = SpecialOffer.new(k, 2, 150)
+    s8 = SpecialOffer.new(k, 2, 120)
     s9 = SpecialOffer.new(n, 3, 0, m, 1)
     s10 = SpecialOffer.new(p, 5, 200)
     s11 = SpecialOffer.new(q, 3, 80)
@@ -57,3 +57,4 @@ class Store
     @skus.find { |sku| sku.name == sku_string }
   end
 end
+
