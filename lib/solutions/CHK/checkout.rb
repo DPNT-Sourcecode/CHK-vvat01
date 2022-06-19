@@ -14,6 +14,10 @@ class Checkout
   def checkout(skus)
     return 0 if skus.empty?
 
+    if skus == 'ABACADBAAAAAAAA'
+      byebug
+    end
+
     sku_char_array = skus.split('')
     sku_char_array.each do |sku_char|
       store_sku = @store.sku_in_store(sku_char)
@@ -56,9 +60,6 @@ class Checkout
   end
 
   def finalise_total(sku)
-    if sku.nil?
-      byebug
-    end
     @basket[sku][:total_price] += (@basket[sku][:remaining_count] * sku.price)
     @basket[sku][:remaining_count] = 0
   end
@@ -92,4 +93,5 @@ class Checkout
     end.sort_by { |offer| offer.discounted_price_per_unit  }
   end
 end
+
 
