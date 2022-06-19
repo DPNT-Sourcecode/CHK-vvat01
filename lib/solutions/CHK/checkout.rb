@@ -35,7 +35,7 @@ class Checkout
 
   def apply_special_offers
     @store.special_offers.sort_by { |offer| offer.discounted_price_per_unit  }.each do |offer|
-      next if (@basket.keys & offer.qualifying_skus & offer.applied_skus).empty?
+      next if (@basket.keys & offer.qualifying_skus).empty? && (@basket.keys & offer.applied_skus).empty?
 
       qualifiers = @basket.select { |sku, entry| offer.qualifying_skus.include?(sku) && entry[:remaining_count] > 0 }
       next if qualifiers.empty?
@@ -48,7 +48,6 @@ class Checkout
 
       applyiers_quantity = appliers.keys.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
       next unless applyiers_quantity >= offer.applied_quantity
-      
       
       times_qualified = applyiers_quantity / offer.applied_quantity
       times_qualified.times do
