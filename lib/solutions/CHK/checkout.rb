@@ -8,7 +8,7 @@ class Checkout
   def initialize()
     @store = Store.new
 
-    @basket = Hash.new { |h, k| h[k] = { count: 0 } }
+    @basket = Hash.new { |h, k| h[k] = { total_count: 0 } }
   end
 
   def checkout(skus)
@@ -19,9 +19,10 @@ class Checkout
       store_sku = @store.sku_in_store(sku_char)
       return -1 unless store_sku
 
-      @basket[store_sku][:count] += 1
+      @basket[store_sku][:total_count] += 1
     end
-    @basket.map { |sku, entry| calculate_total(sku, entry[:count]) }.reduce(:+)
+    @remaining_counts = @basket.clone
+    @basket.map { |sku, entry| calculate_total(sku) }.reduce(:+)
   end
 
   private
@@ -56,3 +57,4 @@ class Checkout
     end.sort_by { |offer| offer.discounted_price_per_unit  }
   end
 end
+
