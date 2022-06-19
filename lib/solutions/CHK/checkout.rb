@@ -14,7 +14,7 @@ class Checkout
   def checkout(skus)
     return 0 if skus.empty?
 
-    if skus == 'EEEBB'
+    if skus == 'FFFFFFFF'
       byebug
     end
 
@@ -46,10 +46,10 @@ class Checkout
       appliers = @basket.select { |sku, entry| offer.applied_skus.include?(sku) && entry[:remaining_count] > 0 }
       next if appliers.empty?
 
-      applyiers_quantity = appliers.keys.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
-      next unless applyiers_quantity >= offer.applied_quantity
+      appliers_quantity = appliers.keys.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
+      next unless appliers_quantity >= offer.applied_quantity
       
-      times_qualified = applyiers_quantity / offer.applied_quantity
+      times_qualified = qualifiers_quantity / offer.qualifying_quantity
       times_qualified.times do
         ticker = offer.applied_quantity
         current_appliers_index = 0
@@ -96,3 +96,4 @@ class Checkout
   #   end.sort_by { |offer| offer.discounted_price_per_unit  }
   # end
 end
+
