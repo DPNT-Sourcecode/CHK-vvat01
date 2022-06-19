@@ -76,5 +76,18 @@ describe Checkout do
   it "Handles group offers" do
     expect(Checkout.new.checkout('STXYZT')).to eq 90
   end
+
+  it "Handles another group offer" do
+    expect(Checkout.new.checkout('SSSZ')).to eq 65
+  end
+
+  it "Handles yet another group offer" do
+    expect(Checkout.new.checkout('STXZ')).to eq 62
+  end
+
+  it "Handles full alphabet twice" do
+    expect(Checkout.new.checkout('ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ')).to eq 1602
+  end
 end
+
 
