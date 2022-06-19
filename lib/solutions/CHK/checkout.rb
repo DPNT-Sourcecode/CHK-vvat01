@@ -31,28 +31,26 @@ class Checkout
 
   def apply_special_offers
     @store.special_offers.each do |offer|
+      byebug
       next if (@basket.keys & offer.qualifying_skus & offer.applied_skus).empty?
 
       qualifiers = @basket.select { |sku, entry| offer.qualifying_skus.include?(sku) && entry[:remaining_count] > 0 }
-      qualifiers_quantity = qualifiers.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
+      qualifiers_quantity = qualifiers.keys.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
       next unless qualifiers_quantity > offer.qualifying_quantity
 
       appliers = @basket.select { |sku, entry| offer.applied_skus.include?(sku) && entry[:remaining_count] > 0 }
-      applyiers_quantity = appliers.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
+      applyiers_quantity = appliers.keys.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
       next unless applyiers_quantity > offer.applied_quantity
-
+      
+      
       times_qualified = applyiers_quantity / offer.applied_quantity
       times_qualified.times do
         ticker = offer.applied_quantity
         current_appliers_index = 0
         ticker.times do
-          byebug
           @basket[appliers[current_appliers_index]][:remaining_count] -= 1
           @basket[appliers[current_appliers_index]][:total_price] += offer.discounted_price_per_unit
           current_appliers_index += 1 if @basket[appliers[current_appliers_index]][:remaining_count].zero?
-        end
-        appliers.each do |applier|
-          @basket
         end
       end
     end
