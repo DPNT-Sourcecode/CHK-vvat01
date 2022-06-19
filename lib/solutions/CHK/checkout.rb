@@ -39,11 +39,11 @@ class Checkout
 
       qualifiers = @basket.select { |sku, entry| offer.qualifying_skus.include?(sku) && entry[:remaining_count] > 0 }
       qualifiers_quantity = qualifiers.keys.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
-      next unless qualifiers_quantity > offer.qualifying_quantity
+      next unless qualifiers_quantity >= offer.qualifying_quantity
 
       appliers = @basket.select { |sku, entry| offer.applied_skus.include?(sku) && entry[:remaining_count] > 0 }
       applyiers_quantity = appliers.keys.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
-      next unless applyiers_quantity > offer.applied_quantity
+      next unless applyiers_quantity >= offer.applied_quantity
       
       
       times_qualified = applyiers_quantity / offer.applied_quantity
@@ -93,6 +93,7 @@ class Checkout
     end.sort_by { |offer| offer.discounted_price_per_unit  }
   end
 end
+
 
 
 
