@@ -31,7 +31,6 @@ class Checkout
 
   def apply_special_offers
     @store.special_offers.each do |offer|
-      byebug
       next if (@basket.keys & offer.qualifying_skus & offer.applied_skus).empty?
 
       qualifiers = @basket.select { |sku, entry| offer.qualifying_skus.include?(sku) && entry[:remaining_count] > 0 }
@@ -57,6 +56,9 @@ class Checkout
   end
 
   def finalise_total(sku)
+    if sku.nil?
+      byebug
+    end
     @basket[sku][:total_price] += (@basket[sku][:remaining_count] * sku.price)
     @basket[sku][:remaining_count] = 0
   end
@@ -90,3 +92,4 @@ class Checkout
     end.sort_by { |offer| offer.discounted_price_per_unit  }
   end
 end
+
