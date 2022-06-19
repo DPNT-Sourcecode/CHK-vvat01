@@ -14,10 +14,6 @@ class Checkout
   def checkout(skus)
     return 0 if skus.empty?
 
-    # if skus == 'SSSZ'
-    #   byebug
-    # end
-
     sku_char_array = skus.split('')
     sku_char_array.each do |sku_char|
       store_sku = @store.sku_in_store(sku_char)
@@ -51,12 +47,13 @@ class Checkout
       
       times_qualified = qualifiers_quantity / offer.required_qualifying_count
       current_appliers_index = 0
+      sorted_appliers = appliers.keys.sort_by { |sku| -sku.price }
       times_qualified.times do
         ticker = offer.applied_quantity
         ticker.times do
-          @basket[appliers.keys[current_appliers_index]][:remaining_count] -= 1
-          @basket[appliers.keys[current_appliers_index]][:total_price] += offer.discounted_price_per_unit
-          current_appliers_index += 1 if @basket[appliers.keys[current_appliers_index]][:remaining_count].zero?
+          @basket[sorted_appliers[current_appliers_index]][:remaining_count] -= 1
+          @basket[sorted_appliers[current_appliers_index]][:total_price] += offer.discounted_price_per_unit
+          current_appliers_index += 1 if @basket[sorted_appliers[current_appliers_index]][:remaining_count].zero?
         end
       end
     end
@@ -67,5 +64,6 @@ class Checkout
     @basket[sku][:remaining_count] = 0
   end
 end
+
 
 
