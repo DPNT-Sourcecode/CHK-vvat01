@@ -51,7 +51,7 @@ class Store
     s16 = SpecialOffer.new([s,t,x,y,z], 3, 45)
 
     @skus = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z]
-    @special_offers = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15]
+    @special_offers = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16]
   end
 
   def sku_in_store(sku_string)
