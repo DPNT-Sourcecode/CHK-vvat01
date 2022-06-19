@@ -48,6 +48,7 @@ class Store
     s13 = SpecialOffer.new([u], 3, 120, u, 4)
     s14 = SpecialOffer.new([v], 2, 90)
     s15 = SpecialOffer.new([v], 3, 130)
+    s16 = SpecialOffer.new([s,t,x,y,z], 3, 45)
 
     @skus = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z]
     @special_offers = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15]
@@ -57,5 +58,6 @@ class Store
     @skus.find { |sku| sku.name == sku_string }
   end
 end
+
 
 

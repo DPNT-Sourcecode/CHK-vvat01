@@ -72,7 +72,12 @@ describe Checkout do
   it "Handles 5 Qs" do
     expect(Checkout.new.checkout('QQQQQ')).to eq 140
   end
+
+  it "Handles group offers" do
+    expect(Checkout.new.checkout('STXYZT')).to eq 90
+  end
 end
+
 
 
 
