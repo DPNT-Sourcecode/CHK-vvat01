@@ -23,14 +23,44 @@ class Checkout
       @basket[store_sku][:remaining_count] += 1
     end
     apply_special_offers
-    @basket.keys.map { |sku| calculate_total(sku) }.reduce(:+)
+    @basket.keys.each { |sku| finalise_total(sku) }
+    @basket.map { |_sku, entry| entry[:total_price] }.reduce(:+)
   end
 
   private
 
   def apply_special_offers
     @store.special_offers.each do |offer|
+      next if (@basket.keys & offer.qualifying_skus & offer.applied_skus).empty?
+
+      qualifiers = @basket.select { |sku, entry| offer.qualifying_skus.include?(sku) && entry[:remaining_count] > 0 }
+      qualifiers_quantity = qualifiers.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
+      next unless qualifiers_quantity > offer.qualifying_quantity
+
+      appliers = @basket.select { |sku, entry| offer.applied_skus.include?(sku) && entry[:remaining_count] > 0 }
+      applyiers_quantity = appliers.map { |sku| @basket[sku][:remaining_count] }.reduce(:+)
+      next unless applyiers_quantity > offer.applied_quantity
+
+      times_qualified = applyiers_quantity / offer.applied_quantity
+      times_qualified.times do
+        ticker = offer.applied_quantity
+        current_appliers_index = 0
+        ticker.times do
+          @basket[appliers[current_appliers_index]][:remaining_count] -= 1
+          @basket[appliers[current_appliers_index]][:total_price] += offer.discounted_price_per_unit
+          current_appliers_index += 1 if @basket[appliers[current_appliers_index]][:remaining_count].zero?
+        end
+        appliers.each do |applier|
+          @basket
+        end
+      end
     end
+  end
+
+  def finalise_total(sku)
+    byebug
+    @basket[sku][:total_price] += (@basket[sku][:remaining_count] * sku.price)
+    @basket[sku][:remaining_count] = 0
   end
 
   def calculate_total(sku)
