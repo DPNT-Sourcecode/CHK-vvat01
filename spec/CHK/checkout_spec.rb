@@ -77,7 +77,3 @@ describe Checkout do
     expect(Checkout.new.checkout('STXYZT')).to eq 90
   end
 end
-
-
-
-

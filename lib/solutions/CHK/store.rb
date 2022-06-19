@@ -58,6 +58,3 @@ class Store
     @skus.find { |sku| sku.name == sku_string }
   end
 end
-
-
-
